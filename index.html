@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find the Odd One Out</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Start Screen -->
+    <div class="container start-screen">
+        <div class="header1">
+            <h1>Find the</h1>
+        </div>
+        <div class="header2">
+            <h1><span class="highlight">Odd</span> one Out</h1>
+        </div>
+        <button id="startButton">START</button>
+    </div>
+
+    <!-- Game Screen -->
+    <div class="container game-screen hidden">
+        <div class="top-bar">
+            <div class="progress-bar">
+                <div class="progress-bar-fill"></div>
+            </div>
+            <div class="progress">Progress 1/10</div>
+            <div class="timer">01:30</div>
+        </div>
+        <div class="grid">
+            <div class="cell"><img src="images/placeholder.png" alt="Placeholder"></div>
+            <div class="cell"><img src="images/placeholder.png" alt="Placeholder"></div>
+            <div class="cell"><img src="images/placeholder.png" alt="Placeholder"></div>
+            <div class="cell"><img src="images/placeholder.png" alt="Placeholder"></div>
+        </div>
+    </div>
+
+    <!-- Result Screen -->
+    <div class="container result-screen hidden">
+        <div class="top-bar">
+            <div class="progress-bar">
+                <div class="progress-bar-fill"></div>
+            </div>
+            <div class="progress">Progress 1/10</div>
+            <div class="timer">01:30</div>
+        </div>
+        <div class="feedback">Correct!</div>
+        <button id="nextButton">Next</button>
+    </div>
+
+    <!-- Score Screen -->
+    <div class="container score-screen hidden">
+        <div class="score-box">
+            <div class="final-score" id="finalScore">Score: 0/10</div>
+            <div class="final-time" id="finalTime">Time Taken: 00:00</div>
+            <button id="restartButton">Restart</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

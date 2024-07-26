@@ -75,7 +75,6 @@ document.addEventListener('DOMContentLoaded', () => {
             loadQuestion();
             showScreen(gameScreen);
         } else {
-            clearInterval(timerInterval);
             showScoreScreen();
         }
     });
@@ -105,11 +104,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     function startTimer() {
+        timerElement.textContent = '01:30'; // Initial display
         timerInterval = setInterval(() => {
             if (timeLeft <= 0) {
                 clearInterval(timerInterval);
-                alert('Time is up!');
-                resetGame();
+                showScoreScreen();
                 return;
             }
             timeLeft--;
@@ -117,7 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const minutes = Math.floor(timeLeft / 60);
             const seconds = timeLeft % 60;
             timerElement.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
-        }, 1000);
+        }, 1000); // Update every second
     }
 
     function updateProgressBar() {
@@ -135,9 +134,25 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function showScreen(screen) {
-        document.querySelectorAll('.container').forEach(container => container.classList.add('hidden'));
+        document.querySelectorAll('.container').forEach(container => {
+            container.classList.add('hidden');
+        });
         screen.classList.remove('hidden');
-    }
+        
+        if (screen === startScreen) {
+            startButton.style.display = 'block';
+        } else {
+            startButton.style.display = 'none';
+        }
+        
+        if (screen === resultScreen) {
+            nextButton.style.display = 'block';
+        } else {
+            nextButton.style.display = 'none';
+        }
+
+        // Timer should continue running; no need to reset it here
+    }    
 
     function loadQuestion() {
         const question = questions[currentQuestionIndex];
@@ -163,10 +178,8 @@ document.addEventListener('DOMContentLoaded', () => {
         totalTimeTaken = 0;
         correctAnswers = 0;
         updateProgressText(); // Reset progress text to 1/x at the start
-        timerElement.textContent = '01:30';
+        timerElement.textContent = '01:30'; // Reset timer display
         showScreen(startScreen); // Use showScreen to reset visibility
         updateProgressBar(); // Reset the progress bar to 0% at the start
     }
 });
-
-

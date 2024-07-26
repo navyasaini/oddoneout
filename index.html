@@ -11,14 +11,31 @@
 
 <body>
     <!-- Start Screen -->
-    <div class="container start-screen">
-        <div class="header1">
-            <h1>Find the</h1>
+    <div class="start-screen">
+        <div class="top-section">
+            <div class="header1">
+                <h1>Find the</h1>
+            </div>
+            <div class="header2">
+                <h1><span class="highlight">Odd</span> one Out</h1>
+            </div>
+            <button id="startButton">START</button>
         </div>
-        <div class="header2">
-            <h1><span class="highlight">Odd</span> one Out</h1>
-        </div>
-        <button id="startButton">START</button>
+
+        <div class="bottom-section">
+            <div class="instructions-box">
+                <h2>Instructions</h2>
+                <p>You will be presented with arrows. The test displays an arrow which can appear on either side of the screen (right or left) 
+                and can point in either direction (to the right or to the left).</p>
+
+                <p>Each trial displays a cue at the top of the screen that indicates to the participant whether they have to select the right 
+                or left button according to the "side on which the arrow appeared" or the "direction in which the arrow was pointing".</p>
+
+                <p>In some sections of the task this rule is consistent across trials (single task) while in others it may change from trial 
+                to trial in a randomised order (multitasking). Using both rules in a flexible manner places a higher demand on cognition than 
+                using a single rule.</p>
+
+            </div>
     </div>
 
     <!-- Game Screen -->
@@ -54,8 +71,12 @@
     <!-- Score Screen -->
     <div class="container score-screen hidden">
         <div class="score-box">
-            <div class="final-score" id="finalScore">Score: 0/10</div>
-            <div class="final-time" id="finalTime">Time Taken: 00:00</div>
+            <div class="final-score" id="finalScore"><h1>Your Score: 0/10</h1></div>
+            <div class="final-time" id="finalTime"><h1>Time Taken: 00:00</h1></div>
+            <h2>Interpretation:</h2>
+            <p>Accurate responses lend to an individual's relational reasoning abilities, offering a nuanced perspective on their cognitive 
+                strengths and areas for improvement.Incorrect responses show poor relational reasoning abilities.
+            </p>
             <button id="restartButton">Restart</button>
         </div>
     </div>

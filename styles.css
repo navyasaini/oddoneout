@@ -22,8 +22,20 @@ body {
 }
 
 .start-screen {
-    background-color: #5DCA9C; /* Green background for start screen */
-    height: 600px;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.top-section {
+    background-image: url('images/background.jpeg');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 400px;
 }
 
 .hidden {
@@ -58,23 +70,59 @@ body {
     color: #8A2BE2;
 }
 
+/* Hide all buttons by default */
+button {
+    display: none;
+}
 
-/* Start button styling */
-#startButton {
+/* Show start button only on start-screen */
+.start-screen #startButton {
+    display: block;
     background-color: #8A2BE2;
     color: #ffffff;
     border: none;
     border-radius: 50px;
-    width: 250px; 
+    width: 250px;
     height: 100px;
     cursor: pointer;
     font-size: 3em;
-    position: absolute;
-    bottom: -50px;
-    left: 50%;
-    transform: translateX(-50%);
+    position: fixed; /* Fixes the position of the button */
+    top: 400px; /* Center vertically */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Adjust for the button's width and height */
+    z-index: 1000; /* Ensure the button is above other elements */
 }
 
+/* Ensure that all other containers are hidden properly */
+.hidden {
+    display: none;
+}
+
+.bottom-section {
+    background-color: white;
+    flex-grow: 1; /* Less grow compared to top-section */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 10px; /* Add padding to manage spacing */
+}
+
+/* Instructions box styling */
+.instructions-box {
+    max-width: 1200px;
+    padding: 20px;
+    text-align: left;
+    font-size: 20px;
+    margin-top: -20px; /* Adjust this value as needed */
+}
+
+
+.instructions-box h2 {
+    color: black;
+    font-size: 32px;
+}
 
 /* Game screen styling */
 .game-screen, .result-screen, .score-screen {
@@ -189,18 +237,20 @@ body {
     color: red;
 }
 
-/* Next button styling */
-#nextButton {
+/* Ensure next button is visible on the result-screen */
+.result-screen #nextButton {
+    display: block;
     background-color: #8A2BE2;
     color: #ffffff;
     border: none;
     border-radius: 5px;
     padding: 15px 30px;
     cursor: pointer;
-    font-size: 1em;
-    margin-top: 10px;
     font-size: 1.5em;
+    margin-top: 20px;
+    z-index: 1000; /* Ensure it's above other elements */
 }
+
 
 /* Score screen specific styling */
 .score-screen {
@@ -221,6 +271,7 @@ body {
 #finalScore, #finalTime {
     font-size: 2em;
     margin: 20px 0;
+    text-decoration: solid;
     color: #333; /* Dark grey color for the text */
 }
 
@@ -247,7 +298,6 @@ body {
     background-size: cover; /* Ensure the image covers the entire background */
     background-position: center; /* Center the background image */
     background-repeat: no-repeat; /* Prevent the image from repeating */
-    height: 450px;
 }
 
 /* Score screen specific styling */
@@ -257,3 +307,5 @@ body {
     background-position: center; /* Center the background image */
     background-repeat: no-repeat; /* Prevent the image from repeating */
 }
+
+

@@ -133,7 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const minutes = Math.floor(timeLeft / 60);
             const seconds = timeLeft % 60;
             timerElement.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
-        }, 1000); // Update every second
+        }, 3000); // Update every second
     }
 
     function updateProgressBar() {

@@ -319,8 +319,12 @@ button {
 
 
 /* Score screen specific styling */
-.score-screen {
+.container score-screen hidden {
     background-color: #5DCA9C; /* Green background for the score screen */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Ensure it takes up the full viewport height */
 }
 
 .score-box {
@@ -328,17 +332,33 @@ button {
     border-radius: 10px;
     padding: 30px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    height: 300px;
-    width: 600px;
-    text-align: center;
+    width: 90%; /* Set width to be responsive */
+    max-width: 1100px; /* Maximum width for larger screens */
+    position: relative; /* This will be the reference for absolute positioning */
+    height: 600px; /* Set a specific height for vertical centering */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center vertically within the .score-box */
+    align-items: center; /* Center horizontally within the .score-box */
 }
 
-#finalScore, #finalTime {
-    font-size: 2em;
-    margin: 20px 0;
-    text-decoration: solid;
+#finalScore, #finalTime, #interpretation {
+    font-size: 3em;
+    margin: 10px 0; /* Reduced margin to avoid excessive spacing */
     color: #333; /* Dark grey color for the text */
+    text-align: center;
+    font-weight: bold;
+}
+
+.score-box h2 {
+    font-size: 2em; /* Increase the font size for <h2> */
+    margin: 10px 0; /* Adjust margin if needed */
+}
+
+.score-box p {
+    text-align: center;
+    font-size: 1.5em;
+    margin-top: 20px; /* Added margin for spacing */
 }
 
 #restartButton {

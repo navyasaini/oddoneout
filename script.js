@@ -86,23 +86,40 @@ document.addEventListener('DOMContentLoaded', () => {
     cells.forEach((cell, index) => {
         cell.addEventListener('click', () => {
             if (index === questions[currentQuestionIndex].oddIndex) {
-                feedbackElement.textContent = 'Correct!';
-                feedbackElement.classList.add('correct');
-                feedbackElement.classList.remove('wrong');
+                cell.classList.add('correct');
+                cell.querySelector('.feedback-icon').src = 'images/tick.png'; // Set the tick image
                 correctAnswers++;
             } else {
-                feedbackElement.textContent = 'Wrong!';
-                feedbackElement.classList.add('wrong');
-                feedbackElement.classList.remove('correct');
+                cell.classList.add('wrong');
+                cell.querySelector('.feedback-icon').src = 'images/cross.png'; // Set the cross image
+                // Show the correct one as well
+                const correctCell = cells[questions[currentQuestionIndex].oddIndex];
+                correctCell.classList.add('correct');
+                correctCell.querySelector('.feedback-icon').src = 'images/tick.png';
             }
+    
             setTimeout(() => {
-                showScreen(resultScreen);
-                updateProgressBar(); // Update the progress bar when showing the result screen
-                updateProgressText(); // Update the progress text when showing the result screen
-            }, 1000);
+                currentQuestionIndex++;
+                if (currentQuestionIndex < questions.length) {
+                    loadQuestion();
+                } else {
+                    showScoreScreen();
+                }
+            }, 1000); // Wait 1 second before loading the next question
         });
     });
-
+    
+    function loadQuestion() {
+        const question = questions[currentQuestionIndex];
+        cells.forEach((cell, index) => {
+            cell.classList.remove('correct', 'wrong');
+            cell.querySelector('.feedback-icon').classList.add('hidden');
+            cell.querySelector('img').src = question.images[index];
+        });
+        updateProgressText();
+        updateProgressBar();
+    }
+    
     function startTimer() {
         timerElement.textContent = '01:30'; // Initial display
         timerInterval = setInterval(() => {
@@ -153,15 +170,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Timer should continue running; no need to reset it here
     }    
-
-    function loadQuestion() {
-        const question = questions[currentQuestionIndex];
-        cells.forEach((cell, index) => {
-            cell.querySelector('img').src = question.images[index];
-        });
-        updateProgressText(); // Ensure progress text is updated on the game screen
-        updateProgressBar(); // Ensure progress bar is updated on the game screen
-    }
 
     function showScoreScreen() {
         finalScoreElement.textContent = `Score: ${correctAnswers}/${questions.length}`;

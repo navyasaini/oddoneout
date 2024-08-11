@@ -35,7 +35,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 400px;
+    height: 450px;
     border-radius: 0px 0px 50px 50px;
     overflow: hidden; /* Ensures the content respects the border-radius */
 }
@@ -89,7 +89,7 @@ button {
     cursor: pointer;
     font-size: 3em;
     position: fixed; /* Fixes the position of the button */
-    top: 400px; /* Center vertically */
+    top: 460px; /* Center vertically */
     left: 50%; /* Center horizontally */
     transform: translate(-50%, -50%); /* Adjust for the button's width and height */
     z-index: 1000; /* Ensure the button is above other elements */
@@ -123,11 +123,14 @@ button {
     left: 0;
     right: 0;
     bottom: 0;
+    height: 275px;
+
 }
 
 .instructions-box h2 {
     color: black;
     font-size: 32px;
+    margin-left: 20px;
 }
 
 .instructions-box p{
@@ -137,6 +140,10 @@ button {
 .instructions-box ul{
     color:black
 }
+.instructions-box ul {
+    font-size: 1.1em; /* Adjust the size as needed */
+}
+
 
 /* Game screen styling */
 .game-screen, .result-screen, .score-screen {

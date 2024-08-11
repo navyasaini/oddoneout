@@ -17,6 +17,16 @@ document.addEventListener('DOMContentLoaded', () => {
     let timeLeft = 90; // 1:30 in seconds
     let timerInterval;
     let correctAnswers = 0;
+    let demoQuestions = [
+        {
+            images: ['images/ques3even1.png', 'images/ques3even2.png', 'images/ques3even3.png', 'images/ques3odd.png'],
+            oddIndex: 3
+        },
+        {
+            images: ['images/ques9even1.png', 'images/ques9even2.png', 'images/ques9even3.png', 'images/ques9odd.png'],
+            oddIndex: 3
+        },
+    ];
     let questions = [
         {
             images: ['images/ques1odd.png', 'images/ques1even.png', 'images/ques1even.png', 'images/ques1even.png'],
@@ -62,20 +72,32 @@ document.addEventListener('DOMContentLoaded', () => {
     
     let currentQuestionIndex = 0;
     let totalTimeTaken = 0;
+    let isDemo = true; // Flag to indicate if in demo mode
 
     startButton.addEventListener('click', () => {
         showScreen(gameScreen);
-        startTimer();
         loadQuestion();
     });
 
     nextButton.addEventListener('click', () => {
-        currentQuestionIndex++;
-        if (currentQuestionIndex < questions.length) {
-            loadQuestion();
-            showScreen(gameScreen);
+        if (isDemo) {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < demoQuestions.length) {
+                loadDemoQuestion();
+            } else {
+                alert("Demo completed! Click OK to start the main quiz.");
+                isDemo = false; // Switch to main quiz mode
+                currentQuestionIndex = 0; // Reset index for main quiz
+                startTimer();
+                loadQuestion();
+            }
         } else {
-            showScoreScreen();
+            currentQuestionIndex++;
+            if (currentQuestionIndex < questions.length) {
+                loadQuestion();
+            } else {
+                showScoreScreen();
+            }
         }
     });
 
@@ -85,32 +107,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
     cells.forEach((cell, index) => {
         cell.addEventListener('click', () => {
-            if (index === questions[currentQuestionIndex].oddIndex) {
-                cell.classList.add('correct');
-                cell.querySelector('.feedback-icon').src = 'images/tick.png'; // Set the tick image
-                correctAnswers++;
+            if (isDemo) {
+                handleDemoAnswer(index);
             } else {
-                cell.classList.add('wrong');
-                cell.querySelector('.feedback-icon').src = 'images/cross.png'; // Set the cross image
-                // Show the correct one as well
-                const correctCell = cells[questions[currentQuestionIndex].oddIndex];
-                correctCell.classList.add('correct');
-                correctCell.querySelector('.feedback-icon').src = 'images/tick.png';
+                handleMainQuizAnswer(index);
             }
-    
-            setTimeout(() => {
-                currentQuestionIndex++;
-                if (currentQuestionIndex < questions.length) {
-                    loadQuestion();
-                } else {
-                    showScoreScreen();
-                }
-            }, 1000); // Wait 1 second before loading the next question
         });
     });
-    
+
+    function loadDemoQuestion() {
+        const question = demoQuestions[currentQuestionIndex];
+        cells.forEach((cell, index) => {
+            cell.classList.remove('correct', 'wrong');
+            cell.querySelector('.feedback-icon').classList.add('hidden');
+            cell.querySelector('img').src = question.images[index];
+        });
+        updateProgressText();
+    }
+
     function loadQuestion() {
-        const question = questions[currentQuestionIndex];
+        const question = isDemo ? demoQuestions[currentQuestionIndex] : questions[currentQuestionIndex];
         cells.forEach((cell, index) => {
             cell.classList.remove('correct', 'wrong');
             cell.querySelector('.feedback-icon').classList.add('hidden');
@@ -119,7 +135,37 @@ document.addEventListener('DOMContentLoaded', () => {
         updateProgressText();
         updateProgressBar();
     }
-    
+
+    function handleDemoAnswer(index) {
+        const question = demoQuestions[currentQuestionIndex];
+        if (index === question.oddIndex) {
+            cells[index].classList.add('correct');
+            correctAnswers++;
+        } else {
+            cells[index].classList.add('wrong');
+            const correctCell = cells[question.oddIndex];
+            correctCell.classList.add('correct');
+        }
+        setTimeout(() => {
+            nextButton.click(); // Trigger next button click after 1 second
+        }, 1000);
+    }
+
+    function handleMainQuizAnswer(index) {
+        const question = questions[currentQuestionIndex];
+        if (index === question.oddIndex) {
+            cells[index].classList.add('correct');
+            correctAnswers++;
+        } else {
+            cells[index].classList.add('wrong');
+            const correctCell = cells[question.oddIndex];
+            correctCell.classList.add('correct');
+        }
+        setTimeout(() => {
+            nextButton.click(); // Trigger next button click after 1 second
+        }, 1000);
+    }
+
     function startTimer() {
         timerElement.textContent = '01:30'; // Initial display
         timerInterval = setInterval(() => {
@@ -137,18 +183,23 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function updateProgressBar() {
-        const progressPercent = ((currentQuestionIndex + 1) / questions.length) * 100;
+        const progressPercent = ((currentQuestionIndex + 1) / (isDemo ? demoQuestions.length : questions.length)) * 100;
         progressBarFill.forEach(bar => {
             bar.style.width = `${progressPercent}%`;
         });
     }
 
     function updateProgressText() {
-        const progressText = `Progress ${currentQuestionIndex + 1}/${questions.length}`;
+        let progressText;
+        if (isDemo) {
+            progressText = `Demo ${currentQuestionIndex + 1}/${demoQuestions.length}`;
+        } else {
+            progressText = `Progress ${currentQuestionIndex + 1}/${questions.length}`;
+        }
         progressElement.forEach(progress => {
             progress.textContent = progressText;
         });
-    }
+    }    
 
     function showScreen(screen) {
         document.querySelectorAll('.container').forEach(container => {
@@ -167,8 +218,6 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             nextButton.style.display = 'none';
         }
-
-        // Timer should continue running; no need to reset it here
     }    
 
     function showScoreScreen() {
@@ -185,6 +234,7 @@ document.addEventListener('DOMContentLoaded', () => {
         timeLeft = 90;
         totalTimeTaken = 0;
         correctAnswers = 0;
+        isDemo = true; // Reset to demo mode
         updateProgressText(); // Reset progress text to 1/x at the start
         timerElement.textContent = '01:30'; // Reset timer display
         showScreen(startScreen); // Use showScreen to reset visibility

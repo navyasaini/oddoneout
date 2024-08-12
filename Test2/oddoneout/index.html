@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find the Odd One Out</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Start Screen -->
+    <div class="start-screen">
+        <div class="top-section">
+            <div class="header1">
+                <h1>Find the</h1>
+            </div>
+            <div class="header2">
+                <h1><span class="highlight">Odd</span> one Out</h1>
+            </div>
+            <button id="startButton">START</button>
+        </div>
+
+        <div class="bottom-section">
+            <div class="instructions-box">
+                <h2>Instructions</h2>
+                <ul>
+                    <li>You will see a set of images. One of these images is different from the others.</li>
+                    <li>Your task is to identify the odd one out by clicking on it.</li>
+                    <li>After each selection, you will receive feedback on your choice.</li>
+                    <li>Once you've answered all questions, your score and time taken will be displayed.</li>
+                </ul>
+            </div>            
+    </div>
+
+    <!-- Game Screen -->
+    <div class="container game-screen hidden">
+        <div class="top-bar">
+            <div class="progress-bar">
+                <div class="progress-bar-fill"></div>
+            </div>
+            <div class="progress">Progress 1/10</div>
+            <div class="timer">01:30</div>
+        </div>
+        <div class="grid">
+            <div class="cell" data-index="0"><img src="images/placeholder.png" alt="Placeholder"><img class="feedback-icon hidden" src="images/tick.png" alt="Feedback Icon"></div>
+            <div class="cell" data-index="1"><img src="images/placeholder.png" alt="Placeholder"><img class="feedback-icon hidden" src="images/cross.png" alt="Feedback Icon"></div>
+            <div class="cell" data-index="2"><img src="images/placeholder.png" alt="Placeholder"><img class="feedback-icon hidden" src="images/cross.png" alt="Feedback Icon"></div>
+            <div class="cell" data-index="3"><img src="images/placeholder.png" alt="Placeholder"><img class="feedback-icon hidden" src="images/cross.png" alt="Feedback Icon"></div>
+        </div>        
+    </div>
+
+    <!-- Result Screen -->
+    <div class="container result-screen hidden">
+        <div class="top-bar">
+            <div class="progress-bar">
+                <div class="progress-bar-fill"></div>
+            </div>
+            <div class="progress">Progress 1/10</div>
+            <div class="timer">01:30</div>
+        </div>
+        <div class="feedback">Correct!</div>
+        <button id="nextButton">Next</button>
+    </div>
+
+    <!-- Score Screen -->
+    <div class="container score-screen hidden">
+        <div class="score-box">
+            <div class="final-score" id="finalScore"><h1>Your Score: 0/10</h1></div>
+            <div class="final-time" id="finalTime"><h1>Time Taken: 00:00</h1></div>
+            <h2 id="interpretation">Interpretation:</h2>
+            <p>Accurate responses lend to an individual's relational reasoning abilities, offering a nuanced perspective on their cognitive 
+                strengths and areas for improvement.Incorrect responses show poor relational reasoning abilities.
+            </p>
+            <button id="restartButton">Restart</button>
+            <button id="back-to-dashboard-button" class="back-to-dashboard-button">Back to Dashboard</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

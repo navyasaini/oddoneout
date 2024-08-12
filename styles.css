@@ -200,7 +200,7 @@ button {
     top: 50%;
     transform: translate(-50%, -50%); /* Center vertically */
     height: 60px;
-    width: auto; /* Adjust width if needed */
+    width: 150px; /* Adjust width if needed */
     text-align: center; /* Center text */
     line-height: 60px; /* Align text vertically within the container */
     display: flex; /* Use flexbox to center content */
